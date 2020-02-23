@@ -1,4 +1,4 @@
-package zookeeper.message;
+package zookeeper.registermessage;
 
 
 public class ProviderRegisterMessage {
@@ -7,7 +7,7 @@ public class ProviderRegisterMessage {
 //    服务接口全限定名
     private String servicePath;
 //    对应的真正服务接口的实现类bean id 名称
-    private String refname;
+    private String refId;
 //    服务主机名
     private String serverIp;
 //    服务端口
@@ -35,12 +35,12 @@ public class ProviderRegisterMessage {
         this.servicePath = servicePath;
     }
 
-    public String getRefname() {
-        return refname;
+    public String getRefId() {
+        return refId;
     }
 
-    public void setRefname(String refname) {
-        this.refname = refname;
+    public void setRefId(String refId) {
+        this.refId = refId;
     }
 
     public String getServerIp() {

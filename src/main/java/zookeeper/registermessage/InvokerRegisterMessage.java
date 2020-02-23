@@ -1,4 +1,4 @@
-package zookeeper.message;
+package zookeeper.registermessage;
 
 import java.util.UUID;
 

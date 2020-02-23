@@ -3,12 +3,11 @@ package zookeeper;
 
 import Utils.JacksonUtils;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import org.I0Itec.zkclient.IZkChildListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import zookeeper.message.InvokerRegisterMessage;
-import zookeeper.message.ProviderRegisterMessage;
+import zookeeper.registermessage.InvokerRegisterMessage;
+import zookeeper.registermessage.ProviderRegisterMessage;
 
 
 import java.util.*;
@@ -69,6 +68,6 @@ public class ProviderRegisterCenter extends RegisterCenter {
             }
         }
         long times = System.currentTimeMillis() - startTime;
-        LOGGER.info("注册服务耗时{}ms [服务路径:/zookeeper/{}/{}]", times, nameSpace, provider.getRefname());
+        LOGGER.info("注册服务耗时{}ms [服务路径:/zookeeper/{}/{}]", times, nameSpace, provider.getRefId());
     }
 }
