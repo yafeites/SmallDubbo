@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class InvokerRegisterCenter   extends RegisterCenter{
+public class InvokerRegisterCenter extends RegisterCenter{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InvokerRegisterCenter.class);
 
