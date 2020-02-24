@@ -7,7 +7,7 @@ import serializer.Serializer;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SerialzerAdapter {
+public class SerializerAdapter {
     private static final Map<String, Serializer> SERIALIZER_MAP = new HashMap<>();
 
     public static final String PROTO_STUFF = "ProtoStuff";
