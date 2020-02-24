@@ -1,9 +1,9 @@
 package handler;
 
 
+import call.ProviderService;
 import exception.ServiceException;
-import exception.ServiceOvertime;
-import exception.Serviceovertime;
+import exception.ServiceOvertimeException;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import message.RequestMessage;
@@ -69,10 +69,11 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<RequestMessa
                 acquire = semaphore.tryAcquire(consumeTimeOut, TimeUnit.MILLISECONDS);
                 if (acquire) {
                     // 利用反射发起服务调用
-                    response = ServiceProvider.execute(request);
+                    response = ProviderService.execute(request);
                 } else {
-                    throw new ServiceOvertime("调用服务超时")
                     LOGGER.warn("服务限流,请求超时!");
+                    throw new ServiceOvertimeException("调用服务超时");
+
                 }
             } catch (Exception e) {
                 LOGGER.error("服务方使用反射调用服务时发生错误", e);
