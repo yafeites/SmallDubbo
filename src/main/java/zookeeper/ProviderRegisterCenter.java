@@ -15,10 +15,21 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 public class ProviderRegisterCenter extends RegisterCenter {
+//   单例模式
+    public  static  final  ProviderRegisterCenter instance= new ProviderRegisterCenter();
+
+
     private static final Logger LOGGER = LoggerFactory.getLogger(ProviderRegisterCenter.class);
     private static final Map<String, List<InvokerRegisterMessage>> INVOKER_MAP = new ConcurrentHashMap<>();
     private static Set<String> invokerNodeListenerSet =new CopyOnWriteArraySet<>();
 
+    public  Map<String, List<InvokerRegisterMessage>> getProviderMap() {
+        return INVOKER_MAP;
+    }
+    public  static  ProviderRegisterCenter getInstance()
+    {
+        return instance;
+    }
     public void registerProvider(ProviderRegisterMessage provider) {
         long startTime = System.currentTimeMillis();
         // 创建服务接口的命名空间

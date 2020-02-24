@@ -29,13 +29,13 @@ public class LoadBalanceStorage {
     }
 
 //    外部调用的select方法
-    public ProviderRegisterMessage select(List<ProviderRegisterMessage>messages,String strategy)
+    public  static ProviderRegisterMessage select(List<ProviderRegisterMessage>messages,String strategy)
     {
         strategy=getValidType(strategy);
         return STRATEGY_MAP.get(strategy).select(messages);
     }
 //    对string进行标准化处理
-    private    String getValidType(String strategy) {
+    private   static String getValidType(String strategy) {
         if (RANDOM.equalsIgnoreCase(strategy)) {
             return RANDOM;
         } else if (WEIGHTPOLLING.equalsIgnoreCase(strategy)) {

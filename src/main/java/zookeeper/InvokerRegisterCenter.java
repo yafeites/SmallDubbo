@@ -17,10 +17,18 @@ public class InvokerRegisterCenter extends RegisterCenter{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InvokerRegisterCenter.class);
 
+    public  Map<String, List<ProviderRegisterMessage>> getProviderMap() {
+        return PROVIDER_MAP;
+    }
+
     private static final Map<String, List<ProviderRegisterMessage>> PROVIDER_MAP = new ConcurrentHashMap<>(new HashMap<>());
 
+    private   static  final  InvokerRegisterCenter instance= new InvokerRegisterCenter();
 
-
+    public  static InvokerRegisterCenter getInstance()
+    {
+        return instance;
+    }
 
 
 
