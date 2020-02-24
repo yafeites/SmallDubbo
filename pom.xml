@@ -71,7 +71,7 @@
             <version>${com.caucho.hessian.version}</version>
         </dependency>
 
-        <!--zookeeper-->
+        <!--framework.zookeeper-->
         <dependency>
             <groupId>org.apache.zookeeper</groupId>
             <artifactId>zookeeper</artifactId>
