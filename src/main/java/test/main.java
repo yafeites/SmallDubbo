@@ -11,6 +11,9 @@ import java.util.List;
 public class main {
 
     public static void main(String[] args) throws JsonProcessingException {
+        List<Integer>list=new ArrayList<>();
+        list.add(1);
+        list.get(1);
 //        ObjectMapper MAPPER = new ObjectMapper();
 //        person p=new person();
 //        List<person> persons=new ArrayList<>();

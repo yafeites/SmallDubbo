@@ -19,11 +19,9 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class WeightPollingLoadBalanceStrategyImpl implements LoadBalanceStrategy {
 
-    /**
-     * 计数器
-     */
+//   计数器
     private int index = 0;
-
+//    对象锁
     private  Object lock=new Object();
 
     @Override

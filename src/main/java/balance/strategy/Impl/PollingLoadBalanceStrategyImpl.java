@@ -24,26 +24,21 @@ public class PollingLoadBalanceStrategyImpl implements LoadBalanceStrategy {
     /**
      * 计数器锁
      */
-    private Lock lock = new ReentrantLock();
+    private Object lock=new Object();
 
     @Override
     public ProviderRegisterMessage select(List<ProviderRegisterMessage> messages) {
         ProviderRegisterMessage registerMessage=null;
-        try {
-            // 尝试获取锁,10ms超时
-            lock.tryLock(10, TimeUnit.MILLISECONDS);
-            // 若计数大于服务提供者个数,将计数器归0
+//        防止并发影响
+        synchronized (lock)
+        {
             if (index >= messages.size()) {
                 index = 0;
             }
             registerMessage = messages.get(index);
             index++;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            lock.unlock();
         }
-return  registerMessage;
+            return  registerMessage;
 
     }
 

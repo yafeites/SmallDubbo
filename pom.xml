@@ -107,7 +107,6 @@
             <artifactId>spring-context</artifactId>
             <version>${org.springframework.spring-context.version}</version>
         </dependency>
-
-    </dependencies>
+</dependencies>
 
 </project>
