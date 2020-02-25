@@ -107,7 +107,7 @@ appName=test
 
 
 
-测试用例在Java/test文件夹下，SmallDubbo的具体实现过程在[这里]()
+测试用例在Java/test文件夹下，SmallDubbo的具体实现过程在[这里](https://github.com/yafeites/SmallDubbo/blob/master/doc/SmallDubbo流程介绍.md)
 
 
 
