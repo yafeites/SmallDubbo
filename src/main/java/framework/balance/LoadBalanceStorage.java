@@ -1,18 +1,36 @@
 package framework.balance;
 
-import framework.balance.strategy.Impl.HashLoadBalanceStrategyImpl;
-import framework.balance.strategy.Impl.PollingLoadBalanceStrategyImpl;
-import framework.balance.strategy.Impl.WeightPollingLoadBalanceStrategyImpl;
-import framework.balance.strategy.Impl.WeightRandomLoadBalanceStrategyImpl;
+import framework.balance.strategy.Impl.*;
+import framework.balance.strategy.Index;
 import framework.balance.strategy.LoadBalanceStrategy;
-import framework.balance.strategy.RandomLoadBalanceStrategyImpl;
+import framework.exception.NoSuchServiceException;
+import framework.zookeeper.InvokerRegisterCenter;
 import org.apache.commons.collections.map.HashedMap;
 import framework.zookeeper.registermessage.ProviderRegisterMessage;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class LoadBalanceStorage {
+    public static Map<String, Index> getPoolingMap() {
+        return POOLINGMAP;
+    }
+
+    public  static void setPoolingMap(Map<String, Index> POOLINGMAP) {
+        POOLINGMAP = POOLINGMAP;
+    }
+
+    public static Map<String, Index> getWEIGHTPOOLINGMAP() {
+        return WEIGHTPOOLINGMAP;
+    }
+
+    public static void setWEIGHTPOOLINGMAP(Map<String, Index> WEIGHTPOOLINGMAP) {
+        LoadBalanceStorage.WEIGHTPOOLINGMAP = WEIGHTPOOLINGMAP;
+    }
+
+    private  static  Map<String,Index>WEIGHTPOOLINGMAP=new ConcurrentHashMap<>();
+    private   static  Map<String ,Index> POOLINGMAP=new ConcurrentHashMap<>();
     private  static  final String RANDOM="Random";
     private  static  final String WEIGHTRANDOM="WeightRandom";
     private  static  final  String  POLLING="Polling";
@@ -28,10 +46,19 @@ public class LoadBalanceStorage {
     }
 
 //    外部调用的select方法
-    public  static ProviderRegisterMessage select(List<ProviderRegisterMessage>messages,String strategy)
+    public  static ProviderRegisterMessage select(String strategy,String namespace)
     {
         strategy=getValidType(strategy);
-        return STRATEGY_MAP.get(strategy).select(messages);
+        return STRATEGY_MAP.get(strategy).select(namespace);
+    }
+    public  static  List<ProviderRegisterMessage> getProviderMap(String namespace)
+    {
+        List<ProviderRegisterMessage> messages= InvokerRegisterCenter.getProviderMap().get(namespace);
+        if(messages==null||messages.size()==0)
+        {
+            throw new NoSuchServiceException("没有可用节点");
+        }
+        return messages;
     }
 //    对string进行标准化处理
     private   static String getValidType(String strategy) {

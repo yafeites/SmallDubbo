@@ -32,12 +32,7 @@ public class ClientProxyFactory {
             public Object invoke(Object o, Method method, Object[] args) throws Throwable {
 //                拿到需要调用的服务
                 String nameSpace = appName + "/" + serviceInterface.getName();
-                List<ProviderRegisterMessage> list=invokerRegisterCenter.getProviderMap().get(nameSpace);
-                if(list==null||list.size()==0)
-                {
-                    throw new NoSuchServiceException("没有可用节点");
-                }
-             ProviderRegisterMessage providerRegisterMessage =LoadBalanceStorage.select(list,loadBalanceStrategy);
+             ProviderRegisterMessage providerRegisterMessage =LoadBalanceStorage.select(loadBalanceStrategy,nameSpace);
 //                构造请求message
                 RequestMessage request=new RequestMessage();
                 request.setServicePath(serviceInterface.getName());

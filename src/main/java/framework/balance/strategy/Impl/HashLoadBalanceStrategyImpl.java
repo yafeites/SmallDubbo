@@ -2,7 +2,10 @@ package framework.balance.strategy.Impl;
 
 
 import framework.Utils.IPHelper;
+import framework.balance.LoadBalanceStorage;
 import framework.balance.strategy.LoadBalanceStrategy;
+import framework.exception.NoSuchServiceException;
+import framework.zookeeper.InvokerRegisterCenter;
 import framework.zookeeper.registermessage.ProviderRegisterMessage;
 
 import java.util.List;
@@ -14,7 +17,8 @@ import java.util.List;
 public class HashLoadBalanceStrategyImpl implements LoadBalanceStrategy {
 
     @Override
-    public ProviderRegisterMessage select(List<ProviderRegisterMessage> messages) {
+    public ProviderRegisterMessage select(String namespace) {
+        List<ProviderRegisterMessage>messages= LoadBalanceStorage.getProviderMap(namespace);
         // 获取调用方ip
         String localIP = IPHelper.localIp();
         // 获取源地址对应的hashcode

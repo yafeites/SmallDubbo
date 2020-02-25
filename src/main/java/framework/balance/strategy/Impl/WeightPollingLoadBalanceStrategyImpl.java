@@ -1,8 +1,11 @@
 package framework.balance.strategy.Impl;
 
+import framework.balance.LoadBalanceStorage;
+import framework.balance.strategy.Index;
 import framework.balance.strategy.LoadBalanceStrategy;
-import com.google.common.collect.Lists;
 import framework.exception.EmptyProviderListException;
+import framework.exception.NoSuchServiceException;
+import framework.zookeeper.InvokerRegisterCenter;
 import framework.zookeeper.registermessage.ProviderRegisterMessage;
 
 import java.util.ArrayList;
@@ -13,26 +16,22 @@ import java.util.List;
  *
  */
 public class WeightPollingLoadBalanceStrategyImpl implements LoadBalanceStrategy {
-
-//   计数器
-    private int index = 0;
-//    对象锁
-    private  Object lock=new Object();
-
     @Override
-    public ProviderRegisterMessage select(List<ProviderRegisterMessage> messages) {
+    public ProviderRegisterMessage select(String namespace) {
+
+        List<ProviderRegisterMessage>messages=LoadBalanceStorage.getProviderMap(namespace);
         ProviderRegisterMessage registerMessage = null;
-
-
                 List<ProviderRegisterMessage> indexList = getIndexListByWeight(messages);
-        synchronized (lock)
+        Index index=LoadBalanceStorage.getWEIGHTPOOLINGMAP().get(namespace);
+        synchronized (index)
         {
+            int cnt=index.getValue();
                 // 若计数大于服务提供者个数,将计数器归0
-                if (index >= indexList.size()) {
-                    index = 0;
+                if (cnt >= indexList.size()) {
+                    cnt = 0;
                 }
-                registerMessage = indexList.get(index);
-                index++;
+                registerMessage = indexList.get(cnt);
+                index.setValue(cnt++);
             }
             // 根据加权创建服务列表索引:加权为3,则它的索引在这个数组中出现三次
         return  registerMessage;
@@ -41,7 +40,7 @@ public class WeightPollingLoadBalanceStrategyImpl implements LoadBalanceStrategy
         if (null == providerServices | providerServices.size() == 0) {
             throw  new EmptyProviderListException("无服务提供者信息");
         }
-        ArrayList<ProviderRegisterMessage> list = Lists.newArrayList();
+        ArrayList<ProviderRegisterMessage> list = new ArrayList();
         int index = 0;
         for (ProviderRegisterMessage each : providerServices) {
             int weight = each.getWeight();

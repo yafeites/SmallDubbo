@@ -26,6 +26,7 @@ public class Server {
             providerFactoryBean.setRef(properties.getProperty("ref"));
             providerFactoryBean.setServerPort(Integer.parseInt(properties.getProperty("serverPort")));
             providerFactoryBean.setWorkerThreads(Integer.parseInt(properties.getProperty("workerThreads")));
+            providerFactoryBean.setWeight(Integer.parseInt(properties.getProperty("weight")));
             providerFactoryBean.afterPropertiesSet();
         } catch (Throwable t) {
             throw new ImportPropertyException("参数列表导入错误");

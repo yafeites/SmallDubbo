@@ -1,6 +1,10 @@
 package framework.zookeeper;
 
 import framework.Utils.JacksonUtils;
+import framework.balance.LoadBalanceStorage;
+import framework.balance.strategy.Impl.PollingLoadBalanceStrategyImpl;
+import framework.balance.strategy.Index;
+import framework.balance.strategy.LoadBalanceStrategy;
 import org.I0Itec.zkclient.IZkChildListener;
 import framework.zookeeper.registermessage.InvokerRegisterMessage;
 import framework.zookeeper.registermessage.ProviderRegisterMessage;
@@ -17,11 +21,13 @@ public class InvokerRegisterCenter extends RegisterCenter{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InvokerRegisterCenter.class);
 
-    public  Map<String, List<ProviderRegisterMessage>> getProviderMap() {
+    public static Map<String, List<ProviderRegisterMessage>> getProviderMap() {
         return PROVIDER_MAP;
     }
 
-    private static final Map<String, List<ProviderRegisterMessage>> PROVIDER_MAP = new ConcurrentHashMap<>(new HashMap<>());
+
+
+    private static final Map<String, List<ProviderRegisterMessage>> PROVIDER_MAP = new ConcurrentHashMap<>();
 
     private   static  final  InvokerRegisterCenter instance= new InvokerRegisterCenter();
 
@@ -37,7 +43,14 @@ public class InvokerRegisterCenter extends RegisterCenter{
         List<ProviderRegisterMessage> providerRegisterMessages = null;
         // 创建服务接口的命名空间
         String nameSpace = invoker.getAppName() + "/" + invoker.getServicePath();
-
+        if(!LoadBalanceStorage.getPoolingMap().containsKey(nameSpace))
+        {
+            LoadBalanceStorage.getPoolingMap().put(nameSpace,new Index(0));
+        }
+        if(!LoadBalanceStorage.getWEIGHTPOOLINGMAP().containsKey(nameSpace))
+        {
+            LoadBalanceStorage.getWEIGHTPOOLINGMAP().put(nameSpace,new Index(0));
+        }
             // 创建invoker命名空间(持久节点)
             String invokerPath = ROOT_PATH + "/" + nameSpace + "/" + INVOKER_TYPE;
             boolean exist = zkClient.exists(invokerPath);

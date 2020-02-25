@@ -5,5 +5,5 @@ import framework.zookeeper.registermessage.ProviderRegisterMessage;
 import java.util.List;
 
 public interface LoadBalanceStrategy {
-    ProviderRegisterMessage select(List<ProviderRegisterMessage> messages);
+    ProviderRegisterMessage select(String namespace);
 }
