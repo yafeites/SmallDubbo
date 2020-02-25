@@ -534,23 +534,27 @@ public ProviderRegisterMessage select(List<ProviderRegisterMessage> messages) {
 权重随机，根据每个提供者的权重创建新的list，最后随机
 
 ```
-@Override
-public ProviderRegisterMessage select(List<ProviderRegisterMessage> messages) {
-    ProviderRegisterMessage registerMessage = null;
-
-
-            List<ProviderRegisterMessage> indexList = getIndexListByWeight(messages);
-    synchronized (lock)
-    {
-            // 若计数大于服务提供者个数,将计数器归0
-            if (index >= indexList.size()) {
-                index = 0;
-            }
-            registerMessage = indexList.get(index);
-            index++;
+public ProviderRegisterMessage select(String namespace) {
+    List<ProviderRegisterMessage>messages=LoadBalanceStorage.getProviderMap(namespace);
+    // 根据加权创建服务列表索引:加权为3,则它的索引在这个数组中出现三次
+    List<ProviderRegisterMessage> indexList = getIndexListByWeight(messages);
+    int index = RandomUtils.nextInt(0, indexList.size());
+    return indexList.get(index);
+}
+public  List<ProviderRegisterMessage> getIndexListByWeight(List<ProviderRegisterMessage> providerServices) {
+    if (null == providerServices | providerServices.size() == 0) {
+        throw  new EmptyProviderListException("无服务提供者信息");
+    }
+    ArrayList<ProviderRegisterMessage> list = new ArrayList();
+    int index = 0;
+    for (ProviderRegisterMessage each : providerServices) {
+        int weight = each.getWeight();
+        while (weight-- > 0) {
+            list.add(each);
         }
-        // 根据加权创建服务列表索引:加权为3,则它的索引在这个数组中出现三次
-    return  registerMessage;
+        index++;
+    }
+    return list;
 }
 ```
 
