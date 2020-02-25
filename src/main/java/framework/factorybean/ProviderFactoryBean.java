@@ -19,8 +19,7 @@ public class ProviderFactoryBean implements FactoryBean, InitializingBean {
      */
     private static ProviderRegisterCenter providercenter = ProviderRegisterCenter.getInstance();
 
-    /*需要注册到zk中的信息*/
-    /*必选*/
+
     /**
      * 接口所在应用名
      */
@@ -37,11 +36,7 @@ public class ProviderFactoryBean implements FactoryBean, InitializingBean {
      * 服务端口
      */
     private Integer serverPort;
-    /**
-     * 服务超时时间
-     */
-    private long timeout;
-    /*可选*/
+
 
     /**
      * 服务提供者权重,范围为[1-100]
@@ -93,7 +88,6 @@ public class ProviderFactoryBean implements FactoryBean, InitializingBean {
         // 获取本机ip地址
         provider.setServerIp(IPHelper.localIp());
         provider.setServerPort(serverPort);
-        provider.setTimeout(timeout);
         // 以下都有默认值,如果标签内容有就是标签值,但是都要配置
         provider.setWorkerThread(workerThreads);
         provider.setWeight(weight);
@@ -139,13 +133,6 @@ public class ProviderFactoryBean implements FactoryBean, InitializingBean {
         this.serverPort = serverPort;
     }
 
-    public long getTimeout() {
-        return timeout;
-    }
-
-    public void setTimeout(long timeout) {
-        this.timeout = timeout;
-    }
 
     public int getWeight() {
         return weight;

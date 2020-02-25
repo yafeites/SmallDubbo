@@ -8,9 +8,9 @@ public class main {
 
     public static void main(String[] args)  {
         Server server=new Server();
-        server.setProperties("/service.properties");
+        server.setProviderProperties("/service.properties");
         Client client=new Client();
-       Person p=(Person)client.setProperties("/invoker.properties");
+       Person p=(Person)client.setReferenceProperties("/invoker.properties");
        System.out.println(p.cnt());
     }
 }

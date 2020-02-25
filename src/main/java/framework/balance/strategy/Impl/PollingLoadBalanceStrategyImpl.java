@@ -7,10 +7,8 @@ import framework.zookeeper.registermessage.ProviderRegisterMessage;
 import java.util.List;
 
 /**
- * 软负载轮询算法实现
+ * 轮询算法
  *
- * @author jacksu
- * @date 2018/8/8
  */
 public class PollingLoadBalanceStrategyImpl implements LoadBalanceStrategy {
 

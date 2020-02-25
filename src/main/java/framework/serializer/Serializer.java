@@ -3,8 +3,6 @@ package framework.serializer;
 /**
  * 序列化协议接口
  *
- * @author jacksu
- * @date 2018/8/8
  */
 public interface Serializer {
 

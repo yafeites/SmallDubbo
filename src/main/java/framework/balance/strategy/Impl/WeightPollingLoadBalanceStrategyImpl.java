@@ -9,10 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 软负载加权轮询算法实现
+ * 权重轮询
  *
- * @author jacksu
- * @date 2018/8/8
  */
 public class WeightPollingLoadBalanceStrategyImpl implements LoadBalanceStrategy {
 

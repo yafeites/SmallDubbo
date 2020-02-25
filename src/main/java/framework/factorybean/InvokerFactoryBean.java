@@ -1,6 +1,6 @@
 package framework.factorybean;
 
-import com.google.common.collect.Sets;
+
 import framework.netty.ClientProxyFactory;
 import framework.netty.NettyChannelPoolFactory;
 import framework.zookeeper.InvokerRegisterCenter;
@@ -10,12 +10,13 @@ import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
 import java.net.InetSocketAddress;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 
 public class InvokerFactoryBean implements FactoryBean, InitializingBean {
-    private static Set<InetSocketAddress> socketAddressSet = Sets.newHashSet();
+    private static Set<InetSocketAddress> socketAddressSet = new HashSet<>();
 
     /**
      * ChannelPool工厂

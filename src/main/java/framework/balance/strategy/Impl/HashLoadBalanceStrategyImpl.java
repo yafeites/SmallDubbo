@@ -8,10 +8,8 @@ import framework.zookeeper.registermessage.ProviderRegisterMessage;
 import java.util.List;
 
 /**
- * 软负载hash算法实现
+ * hash轮转
  *
- * @author jacksu
- * @date 2018/8/8
  */
 public class HashLoadBalanceStrategyImpl implements LoadBalanceStrategy {
 

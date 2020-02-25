@@ -11,8 +11,6 @@ import java.util.List;
 /**
  * IP工具类
  *
- * @author jacksu
- * @date 2018/8/8
  */
 public class IPHelper {
 

@@ -11,10 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 软负载加权随机算法实现
+ * 权重随机
  *
- * @author jacksu
- * @date 2018/8/8
  */
 public class WeightRandomLoadBalanceStrategyImpl implements LoadBalanceStrategy {
 

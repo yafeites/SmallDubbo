@@ -1,6 +1,5 @@
 package framework.context;
 
-import com.google.common.collect.Maps;
 import framework.message.ResponseMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +14,7 @@ public class ResponseReceiverHolder {
         /**
          * 缓存返回结果包装类的Map:key是请求id,value是返回结果封装类
          */
-        private static final Map<String, ResponseReceiver> responseMap = Maps.newConcurrentMap();
+        private static final Map<String, ResponseReceiver> responseMap = new ConcurrentHashMap<>();
         //设置单线程任务线程池
         private static final ScheduledExecutorService removeExpireKeyExecutor = Executors.newSingleThreadScheduledExecutor();
 

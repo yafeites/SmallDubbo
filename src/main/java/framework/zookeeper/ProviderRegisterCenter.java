@@ -2,7 +2,6 @@ package framework.zookeeper;
 
 
 import framework.Utils.JacksonUtils;
-import com.google.common.collect.Lists;
 import org.I0Itec.zkclient.IZkChildListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,7 +65,7 @@ public class ProviderRegisterCenter extends RegisterCenter {
                         }
                         // 监听到变化后invokerPath节点下的所有临时节点值是currentChilds
                         // 根据字符串节点值,还原Invoker
-                        List<InvokerRegisterMessage> newInvokerList = Lists.newArrayList();
+                        List<InvokerRegisterMessage> newInvokerList =new ArrayList();
                         for (String each : currentChilds) {
                             newInvokerList.add(JacksonUtils.jsonToObject(each, InvokerRegisterMessage.class));
                         }

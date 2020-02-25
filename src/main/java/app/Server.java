@@ -9,7 +9,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class Server {
-  public void setProperties(String path)
+  public void setProviderProperties(String path)
     {
         ProviderFactoryBean providerFactoryBean=new ProviderFactoryBean();
         Properties properties=new Properties();
@@ -21,7 +21,6 @@ public class Server {
             }
             properties.load(is);
             providerFactoryBean.setId(Integer.parseInt(properties.getProperty("id")));
-            providerFactoryBean.setTimeout(Integer.parseInt(properties.getProperty("timeout")));
             providerFactoryBean.setServicePath(properties.getProperty("interface"));
             providerFactoryBean.setAppName(properties.getProperty("appName"));
             providerFactoryBean.setRef(properties.getProperty("ref"));

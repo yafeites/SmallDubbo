@@ -21,7 +21,7 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<RequestMessa
     private static final Logger LOGGER = LoggerFactory.getLogger(NettyServerHandler.class);
 
     /**
-     * 服务端限流Map(每个服务限流信号量可以在rpc-service.xml的标签中设置)
+     * 服务端限流Map(每个服务限流信号量可以在service.properties的标签中设置)
      */
     private static final Map<String, Semaphore> SERVICE_KEY_SEMAPHORE_MAP = new ConcurrentHashMap<>();
     @Override

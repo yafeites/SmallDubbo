@@ -3,7 +3,6 @@ package framework.netty;
 import framework.Utils.ZkConfigHelper;
 import framework.coder.NettyDecoderHandler;
 import framework.coder.NettyEncoderHandler;
-import com.google.common.collect.Lists;
 import framework.handler.NettyClientHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
@@ -13,6 +12,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import framework.message.ResponseMessage;
 
 import java.net.InetSocketAddress;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -29,6 +29,7 @@ public class NettyChannelPoolFactory {
     private static final int CHANNEL_POOL_SIZE = ZkConfigHelper.getChannelPoolSize();
 
     private NettyChannelPoolFactory() {
+
     }
 
     public static NettyChannelPoolFactory getInstance() {
@@ -80,7 +81,7 @@ public class NettyChannelPoolFactory {
             ChannelFuture channelFuture = bootstrap.connect().sync();
             final Channel newChannel = channelFuture.channel();
             final CountDownLatch connectedLatch = new CountDownLatch(1);
-            final List<Boolean> isSuccessHolder = Lists.newArrayListWithCapacity(1);
+            final List<Boolean> isSuccessHolder = new ArrayList<>(1);
             // 监听Channel是否建立成功
             channelFuture.addListener(new ChannelFutureListener() {
                 @Override

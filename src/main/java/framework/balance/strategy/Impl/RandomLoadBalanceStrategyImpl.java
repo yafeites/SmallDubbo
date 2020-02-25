@@ -7,10 +7,8 @@ import framework.zookeeper.registermessage.ProviderRegisterMessage;
 import java.util.List;
 
 /**
- * 软负载随机算法实现
+ *随机算法
  *
- * @author jacksu
- * @date 2018/8/8
  */
 public class RandomLoadBalanceStrategyImpl implements LoadBalanceStrategy {
 

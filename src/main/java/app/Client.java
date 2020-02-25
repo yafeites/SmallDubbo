@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 public class Client {
     private static final Logger LOGGER = LoggerFactory.getLogger(Client.class);
-  public   Object setProperties(String path)  {
+  public   Object setReferenceProperties(String path)  {
 
         InvokerFactoryBean invokerFactoryBean=new InvokerFactoryBean();
         Properties properties=new Properties();

@@ -1,13 +1,13 @@
 package framework.zookeeper;
 
 import framework.Utils.JacksonUtils;
-import com.google.common.collect.Lists;
 import org.I0Itec.zkclient.IZkChildListener;
 import framework.zookeeper.registermessage.InvokerRegisterMessage;
 import framework.zookeeper.registermessage.ProviderRegisterMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,7 +67,7 @@ public class InvokerRegisterCenter extends RegisterCenter{
                             return;
                         }
                         // 监听到变化后servicePath节点下的所有临时节点值是currentChilds
-                        List<ProviderRegisterMessage> newProviderList = Lists.newArrayList();
+                        List<ProviderRegisterMessage> newProviderList =new ArrayList<>();
                         for (String each : currentChilds) {
                             newProviderList.add(JacksonUtils.jsonToObject(each, ProviderRegisterMessage.class));
                         }
@@ -81,7 +81,7 @@ public class InvokerRegisterCenter extends RegisterCenter{
             // 获取服务节点下所有临时节点(服务注册信息列表)
             List<String> providerStrings = zkClient.getChildren(servicePath);
             // 根据注册信息字符串还原注册信息
-            providerRegisterMessages = Lists.newArrayList();
+            providerRegisterMessages = new ArrayList<>();
             for (String each : providerStrings) {
                 providerRegisterMessages.add(JacksonUtils.jsonToObject(each, ProviderRegisterMessage.class));
             }
